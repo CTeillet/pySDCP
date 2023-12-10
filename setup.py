@@ -2,13 +2,13 @@
 from setuptools import setup
 
 setup(
-    name='pySDCP',
+    name='pysdcp_cteillet',
     version='1',
-    packages=['pysdcp'],
+    packages=['pysdcp_cteillet'],
     url='https://github.com/Galala7/pySDCP',
     license='MIT',
-    author='Guy Shapira',
-    author_email='Galala7@users.noreply.github.com',
+    author='Corentin Teillet',
+    author_email='CTeillet@users.noreply.github.com',
     description='SDCP library to control Sony Projectors',
     classifiers=[
         # How mature is this project? Common values are
