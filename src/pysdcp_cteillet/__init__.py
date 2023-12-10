@@ -2,9 +2,9 @@
 
 import socket
 from collections import namedtuple
-from struct import *
+from struct import pack_into, unpack
 
-from pysdcp.protocol import *
+from src.pysdcp_cteillet.protocol import *
 
 Header = namedtuple("Header", ['version', 'category', 'community'])
 ProjInfo = namedtuple("ProjInfo", ['id', 'product_name', 'serial_number', 'power_state', 'location'])
@@ -377,16 +377,16 @@ class Projector:
 if __name__ == '__main__':
     # b = Projector()
     # b.find_projector(timeout=1)
-    b = Projector("192.168.1.11")
+    # b = Projector("192.168.1.11")
     # b.set_HDMI_input(1)
-    print(b.get_power())
-    print(b.get_aspect_ratio())
-    print(b.get_lamp_timer())
+    # print(b.get_power())
+    # print(b.get_aspect_ratio())
+    # print(b.get_lamp_timer())
     # b.set_aspect_ratio('NORMAL')
     # print(b.get_aspect_ratio())
-    print(b.get_selected_input())
-    print(b.get_calibrated_preset())
-    print(b.get_lamp_control())
+    # print(b.get_selected_input())
+    # print(b.get_calibrated_preset())
+    # print(b.get_lamp_control())
     # b.set_aspect_ratio('STRETCH')
     # b.get_aspect_ratio()
     # print(b.get_power())
