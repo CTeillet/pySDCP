@@ -79,12 +79,25 @@ def decode_text_field(buf):
     return buf.decode().strip(b'\x00'.decode())
 
 
+def get_key(val, dictionary):
+    """
+    Get the key from a dict from his value
+    :param val: value the key needs to corresponds
+    :param dictionary: the dictionary to search in
+    :return: the key or key doesn't exist
+    """
+    for key, value in dictionary.items():
+        if val == value:
+            return key
+    return "key doesn't exist"
+
+
 class Projector:
     def __init__(self, ip: str = None):
         """
-        Base class for projector communication. 
+        Base class for projector communication.
         Enables communication with Projector, Sending commands and Querying Power State
-         
+
         :param ip: str, IP address for projector. if given, will create a projector with default values to communicate
             with projector on the given ip.  i.e. "10.0.0.5"
         """
@@ -167,14 +180,13 @@ class Projector:
         self.ip = addr[0]
         self.is_init = True
 
+    ####################################
+    # POWER
+    ####################################
+
     def set_power(self, on=True):
         self._send_command(action=ACTIONS["SET"], command=COMMANDS["SET_POWER"],
                            data=POWER_STATUS["START_UP"] if on else POWER_STATUS["STANDBY"])
-        return True
-
-    def set_HDMI_input(self, hdmi_num: int):
-        self._send_command(action=ACTIONS["SET"], command=COMMANDS["INPUT"],
-                           data=INPUTS["HDMI1"] if hdmi_num == 1 else INPUTS["HDMI2"])
         return True
 
     def get_power(self):
@@ -184,14 +196,201 @@ class Projector:
         else:
             return True
 
+    ####################################
+    # INPUT
+    ####################################
+
+    def set_input(self, hdmi: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["INPUT"],
+                           data=INPUTS[hdmi])
+        return True
+
+    def get_selected_input(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["INPUT"])
+        return get_key(data, INPUTS)
+
+    def list_inputs(self):
+        return INPUTS.keys()
+
+    ####################################
+    # ASPECT RATIO
+    ####################################
+
+    def get_aspect_ratio(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["ASPECT_RATIO"])
+        return get_key(data, ASPECT_RATIOS)
+
+    def set_aspect_ratio(self, aspect_ratio: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["ASPECT_RATIO"],
+                           data=ASPECT_RATIOS[aspect_ratio])
+
+    def list_aspects_ratio(self):
+        return ASPECT_RATIOS.keys()
+
+    ####################################
+    # CALIBRATED PRESETS
+    ####################################
+    def get_calibrated_preset(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["CALIBRATED_PRESET"])
+        return get_key(data, CALIBRATED_PRESETS)
+
+    def list_calibrated_presets(self):
+        return CALIBRATED_PRESETS.keys()
+
+    def get_lamp_control(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["LAMP_CONTROL"])
+        return get_key(data, LAMP_CONTROLS)
+
+    ####################################
+    # LAMP CONTROL
+    ####################################
+
+    def get_lamp_timer(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["GET_STATUS_LAMP_TIMER"])
+        return data
+
+    def set_lamp_control(self, lamp_mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["LAMP_CONTROL"],
+                           data=LAMP_CONTROLS[lamp_mode])
+
+    def list_lamp_controls(self):
+        return LAMP_CONTROLS.keys()
+
+    ####################################
+    # MOTION FLOW
+    ####################################
+    def get_motionflow(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["MOTIONFLOW"])
+        return get_key(data, MOTIONFLOW_OPTIONS)
+
+    def set_motionflow(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["MOTIONFLOW"],
+                           data=MOTIONFLOW_OPTIONS[mode])
+
+    def list_motionflows(self):
+        return MOTIONFLOW_OPTIONS.keys()
+
+    ####################################
+    # COLOR TEMPERATURE
+    ####################################
+    def get_color_temperature(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["COLOR_TEMPERATURE"])
+        return get_key(data, COLOR_TEMPERATURE_OPTIONS)
+
+    def set_color_temperature(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["COLOR_TEMPERATURE"],
+                           data=COLOR_TEMPERATURE_OPTIONS[mode])
+
+    def list_color_temperatures(self):
+        return COLOR_TEMPERATURE_OPTIONS.keys()
+
+    ####################################
+    # FILM MODE
+    ####################################
+    def get_film_mode(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["FILM_MODE"])
+        return get_key(data, FILM_MODE_OPTIONS)
+
+    def set_film_mode(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["FILM_MODE"],
+                           data=FILM_MODE_OPTIONS[mode])
+
+    def list_film_modes(self):
+        return FILM_MODE_OPTIONS.keys()
+
+    ####################################
+    # REALITY CREATION
+    ####################################
+
+    def get_reality_creation(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["REALITY_CREATION"])
+        return get_key(data, REALITY_CREATION_OPTIONS)
+
+    def set_reality_creation(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["REALITY_CREATION"],
+                           data=REALITY_CREATION_OPTIONS[mode])
+
+    def list_reality_creations(self):
+        return REALITY_CREATION_OPTIONS.keys()
+
+    ####################################
+    # CONTRAST ENHANCER
+    ####################################
+
+    def get_contrast_enhancer(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["CONTRAST_ENHANCER"])
+        return get_key(data, CONTRAST_ENHANCER_OPTIONS)
+
+    def set_contrast_enhancer(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["CONTRAST_ENHANCER"],
+                           data=CONTRAST_ENHANCER_OPTIONS[mode])
+
+    def list_contrast_enhancers(self):
+        return CONTRAST_ENHANCER_OPTIONS.keys()
+
+    ####################################
+    # COLOR SPACE
+    ####################################
+
+    def get_color_space(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["COLOR_SPACE"])
+        return get_key(data, COLOR_SPACE_OPTIONS)
+
+    def set_color_space(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["COLOR_SPACE"],
+                           data=COLOR_SPACE_OPTIONS[mode])
+
+    def list_color_spaces(self):
+        return COLOR_SPACE_OPTIONS.keys()
+
+    ####################################
+    # COLOR CORRECTION
+    ####################################
+
+    def get_color_correction(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["COLOR_CORRECTION"])
+        return get_key(data, COLOR_CORRECTION_OPTIONS)
+
+    def set_color_correction(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["COLOR_CORRECTION"],
+                           data=COLOR_CORRECTION_OPTIONS[mode])
+
+    def list_color_corrections(self):
+        return COLOR_CORRECTION_OPTIONS.keys()
+
+    ####################################
+    # GAMMA CORRECTION
+    ####################################
+
+    def get_gamma_correction(self):
+        data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["GAMMA_CORRECTION"])
+        return get_key(data, GAMMA_CORRECTION_OPTIONS)
+
+    def set_gamma_correction(self, mode: str):
+        self._send_command(action=ACTIONS["SET"], command=COMMANDS["GAMMA_CORRECTION"],
+                           data=GAMMA_CORRECTION_OPTIONS[mode])
+
+    def list_gamma_corrections(self):
+        return GAMMA_CORRECTION_OPTIONS.keys()
+
 
 if __name__ == '__main__':
     # b = Projector()
     # b.find_projector(timeout=1)
-    # # print(b.get_power())
-    # # b = Projector("10.0.0.139")
-    # # #
+    b = Projector("192.168.1.11")
+    # b.set_HDMI_input(1)
+    print(b.get_power())
+    print(b.get_aspect_ratio())
+    print(b.get_lamp_timer())
+    # b.set_aspect_ratio('NORMAL')
+    # print(b.get_aspect_ratio())
+    print(b.get_selected_input())
+    print(b.get_calibrated_preset())
+    print(b.get_lamp_control())
+    # b.set_aspect_ratio('STRETCH')
+    # b.get_aspect_ratio()
     # print(b.get_power())
+    # # #
     # print(b.set_power(False))
     # # import time
     # # time.sleep(7)
