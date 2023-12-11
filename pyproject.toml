@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pysdcp_cteillet"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
     { name = "CTeillet", email = "CTeillet@users.noreply.github.com" },
     { name = 'Guy Shapira', email = 'Galala7@users.noreply.github.com' },
