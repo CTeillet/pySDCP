@@ -1,4 +1,4 @@
-#! py3
+#!/usr/bin/env python3
 
 import socket
 from collections import namedtuple
@@ -210,7 +210,7 @@ class Projector:
         return get_key(data, INPUTS)
 
     def list_inputs(self):
-        return INPUTS.keys()
+        return list(INPUTS.keys())
 
     ####################################
     # ASPECT RATIO
@@ -225,7 +225,7 @@ class Projector:
                            data=ASPECT_RATIOS[aspect_ratio])
 
     def list_aspects_ratio(self):
-        return ASPECT_RATIOS.keys()
+        return list(ASPECT_RATIOS.keys())
 
     ####################################
     # CALIBRATED PRESETS
@@ -235,7 +235,7 @@ class Projector:
         return get_key(data, CALIBRATED_PRESETS)
 
     def list_calibrated_presets(self):
-        return CALIBRATED_PRESETS.keys()
+        return list(CALIBRATED_PRESETS.keys())
 
     def get_lamp_control(self):
         data = self._send_command(action=ACTIONS["GET"], command=COMMANDS["LAMP_CONTROL"])
@@ -254,7 +254,7 @@ class Projector:
                            data=LAMP_CONTROLS[lamp_mode])
 
     def list_lamp_controls(self):
-        return LAMP_CONTROLS.keys()
+        return list(LAMP_CONTROLS.keys())
 
     ####################################
     # MOTION FLOW
@@ -268,7 +268,7 @@ class Projector:
                            data=MOTIONFLOW_OPTIONS[mode])
 
     def list_motionflows(self):
-        return MOTIONFLOW_OPTIONS.keys()
+        return list(MOTIONFLOW_OPTIONS.keys())
 
     ####################################
     # COLOR TEMPERATURE
@@ -282,7 +282,7 @@ class Projector:
                            data=COLOR_TEMPERATURE_OPTIONS[mode])
 
     def list_color_temperatures(self):
-        return COLOR_TEMPERATURE_OPTIONS.keys()
+        return list(COLOR_TEMPERATURE_OPTIONS.keys())
 
     ####################################
     # FILM MODE
@@ -296,7 +296,7 @@ class Projector:
                            data=FILM_MODE_OPTIONS[mode])
 
     def list_film_modes(self):
-        return FILM_MODE_OPTIONS.keys()
+        return list(FILM_MODE_OPTIONS.keys())
 
     ####################################
     # REALITY CREATION
@@ -311,7 +311,7 @@ class Projector:
                            data=REALITY_CREATION_OPTIONS[mode])
 
     def list_reality_creations(self):
-        return REALITY_CREATION_OPTIONS.keys()
+        return list(REALITY_CREATION_OPTIONS.keys())
 
     ####################################
     # CONTRAST ENHANCER
@@ -326,7 +326,7 @@ class Projector:
                            data=CONTRAST_ENHANCER_OPTIONS[mode])
 
     def list_contrast_enhancers(self):
-        return CONTRAST_ENHANCER_OPTIONS.keys()
+        return list(CONTRAST_ENHANCER_OPTIONS.keys())
 
     ####################################
     # COLOR SPACE
@@ -341,7 +341,7 @@ class Projector:
                            data=COLOR_SPACE_OPTIONS[mode])
 
     def list_color_spaces(self):
-        return COLOR_SPACE_OPTIONS.keys()
+        return list(COLOR_SPACE_OPTIONS.keys())
 
     ####################################
     # COLOR CORRECTION
@@ -356,7 +356,7 @@ class Projector:
                            data=COLOR_CORRECTION_OPTIONS[mode])
 
     def list_color_corrections(self):
-        return COLOR_CORRECTION_OPTIONS.keys()
+        return list(COLOR_CORRECTION_OPTIONS.keys())
 
     ####################################
     # GAMMA CORRECTION
@@ -371,30 +371,4 @@ class Projector:
                            data=GAMMA_CORRECTION_OPTIONS[mode])
 
     def list_gamma_corrections(self):
-        return GAMMA_CORRECTION_OPTIONS.keys()
-
-
-if __name__ == '__main__':
-    # b = Projector()
-    # b.find_projector(timeout=1)
-    # b = Projector("192.168.1.11")
-    # b.set_HDMI_input(1)
-    # print(b.get_power())
-    # print(b.get_aspect_ratio())
-    # print(b.get_lamp_timer())
-    # b.set_aspect_ratio('NORMAL')
-    # print(b.get_aspect_ratio())
-    # print(b.get_selected_input())
-    # print(b.get_calibrated_preset())
-    # print(b.get_lamp_control())
-    # b.set_aspect_ratio('STRETCH')
-    # b.get_aspect_ratio()
-    # print(b.get_power())
-    # # #
-    # print(b.set_power(False))
-    # # import time
-    # # time.sleep(7)
-    # print (b.set_HDMI_input(1))
-    # # time.sleep(7)
-    # # print (b.set_HDMI_input(2))
-    pass
+        return list(GAMMA_CORRECTION_OPTIONS.keys())

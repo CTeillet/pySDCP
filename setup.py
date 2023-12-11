@@ -5,7 +5,7 @@ setup(
     name='pysdcp_cteillet',
     version='1',
     packages=['pysdcp_cteillet'],
-    url='https://github.com/Galala7/pySDCP',
+    url='https://github.com/CTeillet/pySDCP',
     license='MIT',
     author='Corentin Teillet',
     author_email='CTeillet@users.noreply.github.com',
